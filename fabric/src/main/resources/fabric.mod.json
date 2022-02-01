@@ -1,26 +1,30 @@
 {
   "schemaVersion": 1,
-  "id": "mod_template",
+  "id": "revamped_phantoms",
   "version": "${version}",
-  "name": "Mod Template",
+  "name": "Revamped Phantoms",
   "description": "Description",
   "authors": [
     "Luke Bemish"
   ],
   "contact": {
-    "sources": "https://github.com/lukebemish/mod_template"
+    "sources": "https://github.com/lukebemish/revamped_phantoms"
   },
   "license": "LGPL v3",
   "icon": "icon.png",
+  "accessWidener" : "revamped_phantoms.accessWidener",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "mod_template.fabric.ModTemplateFabric"
+      "revamped_phantoms.fabric.RevampedPhantomsFabric"
     ],
     "client": [
-      "mod_template.fabric.ModTemplateClientFabric"
+      "revamped_phantoms.fabric.RevampedPhantomsClientFabric"
     ]
   },
+  "mixins": [
+    "mixin.revamped_phantoms_common.json"
+  ],
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.18",

@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "revamped_phantoms.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "CooldownInstanceGetter",
+    "EntityMixin",
+    "ItemCooldownsGetter",
+    "PhantomMixin",
+    "PlayerMixin",
+    "LivingEntityInterMixin",
+    "BiomeDefaultFeaturesMixin"
+  ],
+  "client": [
+    "ClientMouseHandlerMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

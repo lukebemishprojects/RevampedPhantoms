@@ -1,3 +1,3 @@
-# Mod Template
+# Revamped Phantoms
 
 README goes here
