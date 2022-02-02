@@ -4,15 +4,16 @@
   "package": "revamped_phantoms.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CooldownInstanceGetter",
+    "ICooldownInstanceMixin",
     "EntityMixin",
-    "ItemCooldownsGetter",
+    "IItemCooldownsMixin",
     "PhantomMixin",
-    "PhantomInterMixin",
+    "IPhantomMixin",
     "PlayerMixin",
-    "LivingEntityInterMixin",
+    "ILivingEntityMixin",
     "BiomeDefaultFeaturesMixin",
-    "SweepAttackMixin"
+    "SweepAttackMixin",
+    "IEntityMixin"
   ],
   "client": [
     "ClientMouseHandlerMixin"

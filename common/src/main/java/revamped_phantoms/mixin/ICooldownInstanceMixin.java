@@ -1,15 +1,12 @@
 package revamped_phantoms.mixin;
 
-import com.mojang.brigadier.arguments.ArgumentType;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemCooldowns;
-import net.minecraft.world.level.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(ItemCooldowns.CooldownInstance.class)
-public interface CooldownInstanceGetter {
+public interface ICooldownInstanceMixin {
     @Accessor
     int getStartTime();
     @Accessor

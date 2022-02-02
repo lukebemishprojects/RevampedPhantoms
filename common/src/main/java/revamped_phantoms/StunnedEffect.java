@@ -1,16 +1,13 @@
 package revamped_phantoms;
 
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
-import org.jetbrains.annotations.Nullable;
-import revamped_phantoms.mixin.CooldownInstanceGetter;
-import revamped_phantoms.mixin.ItemCooldownsGetter;
+import revamped_phantoms.mixin.ICooldownInstanceMixin;
+import revamped_phantoms.mixin.ILivingEntityMixin;
 import revamped_phantoms.mixin.LivingEntityInterMixin;
 
 import java.util.Map;
@@ -31,13 +28,13 @@ public class StunnedEffect extends MobEffect {
             //player.disableShield(true);
             ItemCooldowns cooldowns = player.getCooldowns();
             if (player.tickCount % 4 != 1) {
-                if (cooldowns instanceof ItemCooldownsGetter icgetter) {
+                if (cooldowns instanceof ILivingEntityMixin icgetter) {
                     for (Map.Entry<Item, ItemCooldowns.CooldownInstance> entry : icgetter.getCooldowns().entrySet()) {
                         ItemCooldowns.CooldownInstance inst = entry.getValue();
-                        if (inst instanceof CooldownInstanceGetter instGetter) {
+                        if (inst instanceof ICooldownInstanceMixin instGetter) {
                             int end = instGetter.getEndTime() + 1;
                             int start = instGetter.getStartTime() + 1;
-                            ItemCooldowns.CooldownInstance newInst = CooldownInstanceGetter.invokeNew(start, end);
+                            ItemCooldowns.CooldownInstance newInst = ICooldownInstanceMixin.invokeNew(start, end);
                             icgetter.getCooldowns().put(entry.getKey(), newInst);
                         }
                     }

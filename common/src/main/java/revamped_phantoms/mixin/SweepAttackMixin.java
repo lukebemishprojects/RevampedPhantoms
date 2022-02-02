@@ -14,9 +14,9 @@ public abstract class SweepAttackMixin extends Goal {
                     opcode = Opcodes.PUTFIELD))
     private void revamped_phantoms_setAttackMode(Phantom owner, Phantom.AttackPhase phase) {
         if (owner.getTarget() != null && owner.getTarget().isFallFlying() && !((owner.horizontalCollision || owner.hurtTime > 0))) {
-            ((PhantomInterMixin)owner).setAttackPhase(Phantom.AttackPhase.SWOOP);
+            ((IPhantomMixin)owner).setAttackPhase(Phantom.AttackPhase.SWOOP);
             return;
         }
-        ((PhantomInterMixin)owner).setAttackPhase(phase);
+        ((IPhantomMixin)owner).setAttackPhase(phase);
     }
 }
