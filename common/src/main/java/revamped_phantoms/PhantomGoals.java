@@ -13,6 +13,7 @@ import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import revamped_phantoms.mixin.IEntityMixin;
 import revamped_phantoms.mixin.IPhantomMixin;
 
 import java.util.Comparator;
@@ -162,7 +163,7 @@ public class PhantomGoals {
                         dist = dist.normalize().multiply(0.1,0.1,0.1);
                         dist = Vec3.ZERO;
                         self.level.addParticle(particleoptions, pos.x, pos.y, pos.z, dist.x, dist.y, dist.z);*/
-                        self.playSound(SoundEvents.CAT_HISS, 10.0f, 0.95f + ((IPhantomMixin)self).getRandom().nextFloat() * 0.1f);
+                        self.playSound(SoundEvents.CAT_HISS, 10.0f, 0.95f + ((IEntityMixin)self).getRandom().nextFloat() * 0.1f);
                         if (!livingEntity.hasEffect(RevampedPhantoms.STUNNED_EFFECT.get())) {
                             livingEntity.addEffect(new MobEffectInstance(RevampedPhantoms.STUNNED_EFFECT.get(), 6 * 20, 0, false, false));
                         }
@@ -177,10 +178,8 @@ public class PhantomGoals {
     public static class GrabPreyGoal extends Goal {
 
         final private Phantom self;
-        final private SharedGoalHolder goals;
-        public GrabPreyGoal(Phantom p, SharedGoalHolder g) {
+        public GrabPreyGoal(Phantom p) {
             self = p;
-            goals = g;
         }
 
         private boolean isScaredOfCat;
@@ -188,7 +187,7 @@ public class PhantomGoals {
         @Override
         public boolean canUse() {
             return self.getTarget() != null && ((IPhantomMixin)self).getAttackPhase() == Phantom.AttackPhase.SWOOP
-                    && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying();
+                    && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying() && ((IHasSharedGoals)self).getGoalHolder().shouldGrab;
         }
 
         @Override
@@ -243,8 +242,9 @@ public class PhantomGoals {
             if (self.getBoundingBox().inflate(0.2f).intersects(livingEntity.getBoundingBox()) && !livingEntity.hasPassenger(self)) {
                 //Try to carry off
                 livingEntity.startRiding(self);
-                goals.preyGrabbedY = self.getY();
-                goals.ticksSinceGrabbed = self.tickCount + 20*10;
+                ((IHasSharedGoals)self).getGoalHolder().preyGrabbedY = self.getY();
+                ((IHasSharedGoals)self).getGoalHolder().ticksSinceGrabbed = self.tickCount + 20*10;
+                ((IHasSharedGoals)self).getGoalHolder().shouldGrab = false;
                 ((IPhantomMixin)self).setAttackPhase(Phantom.AttackPhase.CIRCLE);
             } else if (self.horizontalCollision || self.hurtTime > 0 || livingEntity.hasPassenger(self)) {
                 ((IPhantomMixin)self).setAttackPhase(Phantom.AttackPhase.CIRCLE);
@@ -255,10 +255,8 @@ public class PhantomGoals {
     public static class DropPreyGoal extends Goal {
 
         final private Phantom self;
-        final private SharedGoalHolder goals;
-        public DropPreyGoal(Phantom p, SharedGoalHolder g) {
+        public DropPreyGoal(Phantom p) {
             self = p;
-            goals = g;
         }
 
         @Override
@@ -271,7 +269,7 @@ public class PhantomGoals {
             Entity entity = self.getFirstPassenger();
             if (entity == null) {
                 return;
-            } else if (self.getY() > 30.0+goals.preyGrabbedY || self.tickCount > goals.ticksSinceGrabbed) {
+            } else if (self.getY() > 30.0+((IHasSharedGoals)self).getGoalHolder().preyGrabbedY || self.tickCount > ((IHasSharedGoals)self).getGoalHolder().ticksSinceGrabbed) {
                 entity.stopRiding();
             }
         }
