@@ -186,8 +186,9 @@ public class PhantomGoals {
         private int catSearchTick;
         @Override
         public boolean canUse() {
+            boolean shouldOnlyCarry = self.getTarget() instanceof Animal;
             return self.getTarget() != null && ((IPhantomMixin)self).getAttackPhase() == Phantom.AttackPhase.SWOOP
-                    && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying() && ((IHasSharedGoals)self).getGoalHolder().shouldGrab;
+                    && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying() && (((IHasSharedGoals)self).getGoalHolder().shouldGrab || shouldOnlyCarry);
         }
 
         @Override
