@@ -1,14 +1,14 @@
 package revamped_phantoms.mixin;
 
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.Map;
-
-@Mixin(ItemCooldowns.class)
+@Mixin(LivingEntity.class)
 public interface ILivingEntityMixin {
     @Accessor
-    Map<Item, ItemCooldowns.CooldownInstance> getCooldowns();
+    int getUseItemRemaining();
+    @Accessor("useItemRemaining")
+    void setUseItemRemaining(int i);
+
 }

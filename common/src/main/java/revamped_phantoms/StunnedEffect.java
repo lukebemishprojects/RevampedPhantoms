@@ -7,8 +7,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import revamped_phantoms.mixin.ICooldownInstanceMixin;
+import revamped_phantoms.mixin.IItemCooldownsMixin;
 import revamped_phantoms.mixin.ILivingEntityMixin;
-import revamped_phantoms.mixin.LivingEntityInterMixin;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class StunnedEffect extends MobEffect {
             //player.disableShield(true);
             ItemCooldowns cooldowns = player.getCooldowns();
             if (player.tickCount % 4 != 1) {
-                if (cooldowns instanceof ILivingEntityMixin icgetter) {
+                if (cooldowns instanceof IItemCooldownsMixin icgetter) {
                     for (Map.Entry<Item, ItemCooldowns.CooldownInstance> entry : icgetter.getCooldowns().entrySet()) {
                         ItemCooldowns.CooldownInstance inst = entry.getValue();
                         if (inst instanceof ICooldownInstanceMixin instGetter) {
@@ -41,9 +41,9 @@ public class StunnedEffect extends MobEffect {
                 }
             }
             if (player.tickCount % 4 != 1) {
-                int useRemaining = ((LivingEntityInterMixin)player).getUseItemRemaining();
+                int useRemaining = ((ILivingEntityMixin)player).getUseItemRemaining();
                 if (useRemaining != 0) {
-                    ((LivingEntityInterMixin) player).setUseItemRemaining(useRemaining + 1);
+                    ((ILivingEntityMixin) player).setUseItemRemaining(useRemaining + 1);
                 }
             }
         }
