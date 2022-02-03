@@ -1,3 +1,7 @@
+### RevampedPhantoms v0.1.1b
+
+Hotfix that stops phantoms from spawning during the day.
+
 ### Revamped Phantoms v0.1.1
 
 - Phantoms should now alternate attacking and trying to carry off players and villager (they will still just carry off animals).
