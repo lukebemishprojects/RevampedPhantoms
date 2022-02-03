@@ -1,3 +1,7 @@
+### RevampedPhantoms v0.1.1c
+
+Hotfix to fix Forge AT issue (no Fabric changes).
+
 ### RevampedPhantoms v0.1.1b
 
 Hotfix that stops phantoms from spawning during the day.
