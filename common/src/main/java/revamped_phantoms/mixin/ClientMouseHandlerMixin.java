@@ -3,8 +3,6 @@ package revamped_phantoms.mixin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.Options;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Items;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
