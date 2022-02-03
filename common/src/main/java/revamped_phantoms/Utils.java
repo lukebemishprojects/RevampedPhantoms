@@ -1,4 +1,4 @@
-package revamped_phantoms.mixin;
+package revamped_phantoms;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
