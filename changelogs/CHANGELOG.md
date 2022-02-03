@@ -1,8 +1,12 @@
-### RevampedPhantoms v0.1.1c
+### Revamped Phantoms v0.1.2
+
+Changed spawning mechanism for phantoms to prevent cave spawns.
+
+### Revamped Phantoms v0.1.1c
 
 Hotfix to fix Forge AT issue (no Fabric changes).
 
-### RevampedPhantoms v0.1.1b
+### Revamped Phantoms v0.1.1b
 
 Hotfix that stops phantoms from spawning during the day.
 
