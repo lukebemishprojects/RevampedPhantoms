@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BiomeDefaultFeaturesMixin {
     @Inject(method = "monsters", at = @At("TAIL"))
     private static void revamped_phantoms_monsters(MobSpawnSettings.Builder arg, int i, int j, int k, boolean bl, CallbackInfo ci) {
-        arg.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.PHANTOM, 10, 1, 1));
+        arg.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.PHANTOM, 15, 1, 1));
     }
 }
