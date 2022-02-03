@@ -10,6 +10,6 @@ import java.util.Random;
 
 public class Utils {
     public static boolean shouldSpawn(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
-        return Monster.checkMonsterSpawnRules(type,level,reason,pos,random) && level.getSkyDarken() >= 4;
+        return Monster.checkMonsterSpawnRules(type,level,reason,pos,random) && level.getSkyDarken() >= 4 && level.canSeeSky(pos);
     }
 }
