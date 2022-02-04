@@ -1,3 +1,8 @@
+### Revamped Phantoms v0.2.0
+
+- Phantoms now fire a "shockwave" instead of just giving a status effect
+- Phantom AI refined in some areas
+
 ### Revamped Phantoms v0.1.2
 
 Changed spawning mechanism for phantoms to prevent cave spawns.
