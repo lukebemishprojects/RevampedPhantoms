@@ -15,6 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import revamped_phantoms.entity.Shockwave;
 import revamped_phantoms.mixin.IEntityMixin;
 import revamped_phantoms.mixin.IPhantomMixin;
+import revamped_phantoms.utils.IHasSharedGoals;
 
 import java.util.Comparator;
 import java.util.List;

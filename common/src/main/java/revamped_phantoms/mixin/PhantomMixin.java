@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import revamped_phantoms.IHasSharedGoals;
+import revamped_phantoms.utils.IHasSharedGoals;
 import revamped_phantoms.PhantomGoals;
-import revamped_phantoms.SharedGoalHolder;
+import revamped_phantoms.utils.SharedGoalHolder;
 
 @Mixin(Phantom.class)
 public abstract class PhantomMixin extends Mob implements IHasSharedGoals {

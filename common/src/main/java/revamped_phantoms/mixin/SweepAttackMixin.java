@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import revamped_phantoms.IHasSharedGoals;
+import revamped_phantoms.utils.IHasSharedGoals;
 
 @Mixin(targets = {"net/minecraft/world/entity/monster/Phantom$PhantomSweepAttackGoal"})
 public abstract class SweepAttackMixin extends Goal {

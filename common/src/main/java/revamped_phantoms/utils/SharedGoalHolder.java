@@ -1,4 +1,4 @@
-package revamped_phantoms;
+package revamped_phantoms.utils;
 
 public class SharedGoalHolder {
     public double preyGrabbedY = 0;
