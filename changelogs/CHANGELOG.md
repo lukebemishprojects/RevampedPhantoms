@@ -1,3 +1,7 @@
+### Revamped Phantoms v0.2.0b
+
+Hotfix that fixes Forge rendering crash.
+
 ### Revamped Phantoms v0.2.0
 
 - Phantoms now fire a "shockwave" instead of just giving a status effect
