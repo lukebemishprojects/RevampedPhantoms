@@ -22,7 +22,7 @@ public class Shockwave extends AbstractHurtingProjectile {
 
     @Override
     protected float getInertia() {
-        return 1.5f;
+        return 1.4f;
     }
 
     public Shockwave(Level level, LivingEntity livingEntity, double d, double e, double f) {
