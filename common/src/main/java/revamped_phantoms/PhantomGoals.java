@@ -1,7 +1,6 @@
 package revamped_phantoms;
 
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,6 +12,7 @@ import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import revamped_phantoms.entity.Shockwave;
 import revamped_phantoms.mixin.IEntityMixin;
 import revamped_phantoms.mixin.IPhantomMixin;
 
@@ -155,18 +155,21 @@ public class PhantomGoals {
             // stun target
             if (self.hasLineOfSight(livingEntity)) {
                 if (self.tickCount > stunTick && self.distanceTo(livingEntity) < 20) {
-                    //particle?
+                    //projectile
                     if (!self.level.isClientSide()) {
-                        /*SimpleParticleType particleoptions = ParticleTypes.HEART;
-                        Vec3 pos = self.getPosition(1.0f).add(self.getLookAngle().multiply(1.5f,1.5f,1.5f));
-                        Vec3 dist = livingEntity.getPosition(1.0f).subtract(pos);
-                        dist = dist.normalize().multiply(0.1,0.1,0.1);
-                        dist = Vec3.ZERO;
-                        self.level.addParticle(particleoptions, pos.x, pos.y, pos.z, dist.x, dist.y, dist.z);*/
-                        self.playSound(SoundEvents.CAT_HISS, 10.0f, 0.95f + ((IEntityMixin)self).getRandom().nextFloat() * 0.1f);
-                        if (!livingEntity.hasEffect(RevampedPhantoms.STUNNED_EFFECT.get())) {
-                            livingEntity.addEffect(new MobEffectInstance(RevampedPhantoms.STUNNED_EFFECT.get(), 6 * 20, 0, false, false));
+                        Vec3 pos = self.getEyePosition();
+                        double l = pos.x;
+                        double m = pos.y;
+                        double n = pos.z;
+                        double o = self.getTarget().getX() - l;
+                        double p = self.getTarget().getY(0.5) - m;
+                        double q = self.getTarget().getZ() - n;
+                        if (!self.isSilent()) {
+                            self.playSound(SoundEvents.PHANTOM_SWOOP, 10.0f, 1.5f + ((IEntityMixin)self).getRandom().nextFloat() * 0.1f);
                         }
+                        Shockwave shockwave = new Shockwave(self.level, self, o, p, q);
+                        shockwave.moveTo(l, m, n, 0.0f, 0.0f);
+                        self.level.addFreshEntity(shockwave);
                     }
                     //stun here
                     stunTick = self.tickCount + 20*10;
@@ -187,7 +190,7 @@ public class PhantomGoals {
         @Override
         public boolean canUse() {
             boolean shouldOnlyCarry = self.getTarget() instanceof Animal;
-            return self.getTarget() != null && ((IPhantomMixin)self).getAttackPhase() == Phantom.AttackPhase.SWOOP
+            return self.getTarget() != null && ((IPhantomMixin)self).getAttackPhase() == Phantom.AttackPhase.SWOOP && self.getFirstPassenger() == null
                     && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying() && (((IHasSharedGoals)self).getGoalHolder().shouldGrab || shouldOnlyCarry);
         }
 
