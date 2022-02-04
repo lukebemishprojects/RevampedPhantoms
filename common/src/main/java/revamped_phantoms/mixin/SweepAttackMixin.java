@@ -40,7 +40,8 @@ public abstract class SweepAttackMixin extends Goal {
     @Inject(method = "canUse", at=@At("RETURN"), cancellable = true)
     private void revamped_phantoms_canUse(CallbackInfoReturnable<Boolean> ci) {
         boolean shouldOnlyCarry = this$0.getTarget() instanceof Animal;
+        boolean isFlying = this$0.getTarget() != null && this$0.getTarget().isFallFlying();
         boolean old = ci.getReturnValue();
-        ci.setReturnValue(old && !(((IHasSharedGoals)this$0).getGoalHolder().shouldGrab || shouldOnlyCarry));
+        ci.setReturnValue(old && (!(((IHasSharedGoals)this$0).getGoalHolder().shouldGrab || shouldOnlyCarry)) || isFlying);
     }
 }

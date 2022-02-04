@@ -10,7 +10,7 @@ import revamped_phantoms.RevampedPhantoms;
 @Mixin(Player.class)
 public abstract class PlayerMixin {
     @Inject(method = "getCurrentItemAttackStrengthDelay", at = @At("RETURN"), cancellable = true)
-    private void stunned_delaying(CallbackInfoReturnable<Float> ci) {
+    private void revamped_phantoms_stunned_delaying(CallbackInfoReturnable<Float> ci) {
         if (((Player)((Object)this)).hasEffect(RevampedPhantoms.STUNNED_EFFECT.get())) {
             float multiplier = 4.0f;
             float orig = ci.getReturnValue();

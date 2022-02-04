@@ -14,7 +14,8 @@
     "BiomeDefaultFeaturesMixin",
     "SweepAttackMixin",
     "IEntityMixin",
-    "SpawnPlacementsMixin"
+    "SpawnPlacementsMixin",
+    "MoveControlMixin"
   ],
   "client": [
     "ClientMouseHandlerMixin"

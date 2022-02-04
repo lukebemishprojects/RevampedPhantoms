@@ -1,10 +1,13 @@
 package revamped_phantoms.mixin;
 
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,12 +26,12 @@ public abstract class PhantomMixin extends Mob implements IHasSharedGoals {
     private SharedGoalHolder revamped_phantoms_goalHolder;
 
     @Inject(method = "<init>", at=@At("RETURN"))
-    protected void revamped_phantoms_setup(CallbackInfo ci) {
+    private void revamped_phantoms_setup(CallbackInfo ci) {
         revamped_phantoms_goalHolder = new SharedGoalHolder();
     }
 
     @Inject(method = "registerGoals", at=@At("HEAD"))
-    protected void revamped_phantoms_registerGoals(CallbackInfo ci) {
+    private void revamped_phantoms_registerGoals(CallbackInfo ci) {
         Phantom phantom = (Phantom)((Object)this);
         this.goalSelector.addGoal(2, new PhantomGoals.GrabPreyGoal(phantom));
         this.goalSelector.addGoal(1, new PhantomGoals.DropPreyGoal(phantom));
@@ -43,7 +46,7 @@ public abstract class PhantomMixin extends Mob implements IHasSharedGoals {
     }
 
     //unimportant stuff...
-    protected PhantomMixin(EntityType<? extends Mob> entityType, Level level) {
+    private PhantomMixin(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
         throw new AssertionError();
     }
