@@ -47,7 +47,7 @@ public class Shockwave extends AbstractHurtingProjectile {
             if (!list.isEmpty()) {
                 for (LivingEntity livingEntity : list) {
                     if (!(livingEntity instanceof Phantom)) {
-                        livingEntity.addEffect(new MobEffectInstance(RevampedPhantoms.STUNNED_EFFECT.get(), 6 * 20, 0, false, false));
+                        livingEntity.addEffect(new MobEffectInstance(RevampedPhantoms.STUNNED_EFFECT.get(), RevampedPhantoms.getConfig().getTicksStunDuration(), 0, false, false));
                         if (this.getOwner() != null && this.getOwner() instanceof LivingEntity owner) {
                             livingEntity.hurt(DamageSource.mobAttack(owner), 1);
                         }

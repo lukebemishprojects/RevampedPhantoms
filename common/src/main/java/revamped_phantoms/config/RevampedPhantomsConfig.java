@@ -21,6 +21,8 @@ public class RevampedPhantomsConfig {
     private boolean phantomsAttackVillagers = true;
     private float phantomElytraPursueModifier = 8.0f;
     private boolean phantomsStunPrey = true;
+    private int ticksBetweenStunAttempts = 20*10;
+    private int ticksStunDuration = 6*20;
     private boolean phantomsGrabPrey = true;
     private boolean doDaylightSpawns = true;
 
@@ -29,6 +31,7 @@ public class RevampedPhantomsConfig {
         try {
             checkExistence();
             config = GSON.fromJson(new FileReader(FULL_PATH), RevampedPhantomsConfig.class);
+            save(config);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,5 +89,13 @@ public class RevampedPhantomsConfig {
 
     public boolean isDoDaylightSpawns() {
         return doDaylightSpawns;
+    }
+
+    public int getTicksBetweenStunAttempts() {
+        return ticksBetweenStunAttempts;
+    }
+
+    public int getTicksStunDuration() {
+        return ticksStunDuration;
     }
 }

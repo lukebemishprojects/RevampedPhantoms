@@ -173,7 +173,7 @@ public class PhantomGoals {
                         self.level.addFreshEntity(shockwave);
                     }
                     //stun here
-                    stunTick = self.tickCount + 20*10;
+                    stunTick = self.tickCount + RevampedPhantoms.getConfig().getTicksBetweenStunAttempts();
                 }
             }
         }
