@@ -13,6 +13,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import revamped_phantoms.config.RevampedPhantomsConfig;
 import revamped_phantoms.entity.Shockwave;
 
 import java.util.function.Supplier;
@@ -32,5 +33,14 @@ public class RevampedPhantoms {
     public static void init() {
         MOB_EFFECTS.register();
         ENTITY_TYPES.register();
+    }
+
+    private static RevampedPhantomsConfig configs;
+
+    public static RevampedPhantomsConfig getConfig() {
+        if (configs == null) {
+            configs = RevampedPhantomsConfig.get();
+        }
+        return configs;
     }
 }

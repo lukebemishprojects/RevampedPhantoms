@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Desc;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import revamped_phantoms.RevampedPhantoms;
 
 
 @Mixin(targets = {"net/minecraft/world/entity/monster/Phantom$PhantomMoveControl"})
@@ -20,7 +21,7 @@ public class MoveControlMixin {
             target={@Desc(value="degreesDifferenceAbs", owner=Mth.class, ret=Float.class, args={Float.class,Float.class})})
     private float revamped_phantoms_modifyPhantomMaxSpeed(float original) {
         if (this$0.getTarget() != null && this$0.getTarget().isFallFlying()) {
-            return original*8;
+            return original*RevampedPhantoms.getConfig().getPhantomElytraPursueModifier();
         }
         return original;
     }

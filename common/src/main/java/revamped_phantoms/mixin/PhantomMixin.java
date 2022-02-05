@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import revamped_phantoms.RevampedPhantoms;
 import revamped_phantoms.utils.IHasSharedGoals;
 import revamped_phantoms.PhantomGoals;
 import revamped_phantoms.utils.SharedGoalHolder;
@@ -33,11 +34,21 @@ public abstract class PhantomMixin extends Mob implements IHasSharedGoals {
     @Inject(method = "registerGoals", at=@At("HEAD"))
     private void revamped_phantoms_registerGoals(CallbackInfo ci) {
         Phantom phantom = (Phantom)((Object)this);
-        this.goalSelector.addGoal(2, new PhantomGoals.GrabPreyGoal(phantom));
-        this.goalSelector.addGoal(1, new PhantomGoals.DropPreyGoal(phantom));
-        this.goalSelector.addGoal(1, new PhantomGoals.StunPreyGoal(phantom));
-        this.targetSelector.addGoal(1, new PhantomGoals.LivestockTargetGoal(phantom));
-        this.targetSelector.addGoal(2, new PhantomGoals.VillagerTargetGoal(phantom));
+        if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
+            this.goalSelector.addGoal(2, new PhantomGoals.GrabPreyGoal(phantom));
+        }
+        if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
+            this.goalSelector.addGoal(1, new PhantomGoals.DropPreyGoal(phantom));
+        }
+        if (RevampedPhantoms.getConfig().isPhantomsStunPrey()) {
+            this.goalSelector.addGoal(1, new PhantomGoals.StunPreyGoal(phantom));
+        }
+        if (RevampedPhantoms.getConfig().isPhantomsAttackAnimals()) {
+            this.targetSelector.addGoal(1, new PhantomGoals.LivestockTargetGoal(phantom));
+        }
+        if (RevampedPhantoms.getConfig().isPhantomsAttackVillagers()) {
+            this.targetSelector.addGoal(1, new PhantomGoals.VillagerTargetGoal(phantom));
+        }
     }
 
     @Override

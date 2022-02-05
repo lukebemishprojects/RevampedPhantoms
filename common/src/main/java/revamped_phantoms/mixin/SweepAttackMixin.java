@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import revamped_phantoms.RevampedPhantoms;
 import revamped_phantoms.utils.IHasSharedGoals;
 
 @Mixin(targets = {"net/minecraft/world/entity/monster/Phantom$PhantomSweepAttackGoal"})
@@ -26,7 +27,9 @@ public abstract class SweepAttackMixin extends Goal {
     private void revamped_phantoms_setAttackMode(Phantom owner, Phantom.AttackPhase phase) {
         if (owner.getTarget() != null && owner.getTarget().isFallFlying() && !((owner.horizontalCollision || owner.hurtTime > 0))) {
             ((IPhantomMixin)owner).setAttackPhase(Phantom.AttackPhase.SWOOP);
-            ((IHasSharedGoals)owner).getGoalHolder().shouldGrab = true;
+            if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
+                ((IHasSharedGoals) owner).getGoalHolder().shouldGrab = true;
+            }
             return;
         }
         ((IPhantomMixin)owner).setAttackPhase(phase);
@@ -34,7 +37,9 @@ public abstract class SweepAttackMixin extends Goal {
 
     @Inject(method = "tick", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Phantom;doHurtTarget(Lnet/minecraft/world/entity/Entity;)Z"))
     private void revamped_phantoms_onHurtsTarget(CallbackInfo ci) {
-        ((IHasSharedGoals)this$0).getGoalHolder().shouldGrab = true;
+        if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
+            ((IHasSharedGoals) this$0).getGoalHolder().shouldGrab = true;
+        }
     }
 
     @Inject(method = "canUse", at=@At("RETURN"), cancellable = true)
