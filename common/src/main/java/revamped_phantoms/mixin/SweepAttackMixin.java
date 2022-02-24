@@ -28,7 +28,7 @@ public abstract class SweepAttackMixin extends Goal {
         if (owner.getTarget() != null && owner.getTarget().isFallFlying() && !((owner.horizontalCollision || owner.hurtTime > 0))) {
             ((IPhantomMixin)owner).setAttackPhase(Phantom.AttackPhase.SWOOP);
             if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
-                ((IHasSharedGoals) owner).getGoalHolder().shouldGrab = true;
+                ((IHasSharedGoals) owner).revamped_phantoms_getGoalHolder().shouldGrab = true;
             }
             return;
         }
@@ -38,7 +38,7 @@ public abstract class SweepAttackMixin extends Goal {
     @Inject(method = "tick", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Phantom;doHurtTarget(Lnet/minecraft/world/entity/Entity;)Z"))
     private void revamped_phantoms_onHurtsTarget(CallbackInfo ci) {
         if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
-            ((IHasSharedGoals) this$0).getGoalHolder().shouldGrab = true;
+            ((IHasSharedGoals) this$0).revamped_phantoms_getGoalHolder().shouldGrab = true;
         }
     }
 
@@ -47,6 +47,6 @@ public abstract class SweepAttackMixin extends Goal {
         boolean shouldOnlyCarry = this$0.getTarget() instanceof Animal;
         boolean isFlying = this$0.getTarget() != null && this$0.getTarget().isFallFlying();
         boolean old = ci.getReturnValue();
-        ci.setReturnValue(old && (!(((IHasSharedGoals)this$0).getGoalHolder().shouldGrab || shouldOnlyCarry)) || isFlying);
+        ci.setReturnValue(old && (!(((IHasSharedGoals)this$0).revamped_phantoms_getGoalHolder().shouldGrab || shouldOnlyCarry)) || isFlying);
     }
 }

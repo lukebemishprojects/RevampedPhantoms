@@ -1,5 +1,7 @@
 package revamped_phantoms;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -21,10 +23,16 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PhantomGoals {
+    @ExpectPlatform
+    public static ResourceLocation getEntityRl(Entity e) {
+        throw new AssertionError();
+    }
+
     public static class LivestockTargetGoal extends Goal {
-        private final TargetingConditions attackTargeting = TargetingConditions.forCombat().range(64.0);
+        private final TargetingConditions attackTargeting = TargetingConditions.forCombat().range(64.0).selector((LivingEntity e) ->
+                !RevampedPhantoms.getConfig().getPhantomAttackBlacklist().stream().anyMatch(x->getEntityRl(e).toString().endsWith(x)));
         private int nextScanTick = PhantomGoals.LivestockTargetGoal.reducedTickDelay(20);
-        
+
         final private Phantom self;
         public LivestockTargetGoal(Phantom p) {
             self = p;
@@ -192,7 +200,7 @@ public class PhantomGoals {
         public boolean canUse() {
             boolean shouldOnlyCarry = self.getTarget() instanceof Animal;
             return self.getTarget() != null && ((IPhantomMixin)self).getAttackPhase() == Phantom.AttackPhase.SWOOP && self.getFirstPassenger() == null
-                    && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying() && (((IHasSharedGoals)self).getGoalHolder().shouldGrab || shouldOnlyCarry);
+                    && !self.getTarget().isPassenger() && !self.getTarget().isFallFlying() && (((IHasSharedGoals)self).revamped_phantoms_getGoalHolder().shouldGrab || shouldOnlyCarry);
         }
 
         @Override
@@ -247,9 +255,9 @@ public class PhantomGoals {
             if (self.getBoundingBox().inflate(0.2f).intersects(livingEntity.getBoundingBox()) && !livingEntity.hasPassenger(self)) {
                 //Try to carry off
                 livingEntity.startRiding(self);
-                ((IHasSharedGoals)self).getGoalHolder().preyGrabbedY = self.getY();
-                ((IHasSharedGoals)self).getGoalHolder().ticksSinceGrabbed = self.tickCount + 20*10;
-                ((IHasSharedGoals)self).getGoalHolder().shouldGrab = false;
+                ((IHasSharedGoals)self).revamped_phantoms_getGoalHolder().preyGrabbedY = self.getY();
+                ((IHasSharedGoals)self).revamped_phantoms_getGoalHolder().ticksSinceGrabbed = self.tickCount + 20*10;
+                ((IHasSharedGoals)self).revamped_phantoms_getGoalHolder().shouldGrab = false;
                 ((IPhantomMixin)self).setAttackPhase(Phantom.AttackPhase.CIRCLE);
             } else if (self.horizontalCollision || self.hurtTime > 0 || livingEntity.hasPassenger(self)) {
                 ((IPhantomMixin)self).setAttackPhase(Phantom.AttackPhase.CIRCLE);
@@ -274,7 +282,7 @@ public class PhantomGoals {
             Entity entity = self.getFirstPassenger();
             if (entity == null) {
                 return;
-            } else if (self.getY() > 30.0+((IHasSharedGoals)self).getGoalHolder().preyGrabbedY || self.tickCount > ((IHasSharedGoals)self).getGoalHolder().ticksSinceGrabbed) {
+            } else if (self.getY() > 30.0+((IHasSharedGoals)self).revamped_phantoms_getGoalHolder().preyGrabbedY || self.tickCount > ((IHasSharedGoals)self).revamped_phantoms_getGoalHolder().ticksSinceGrabbed) {
                 entity.stopRiding();
             }
         }

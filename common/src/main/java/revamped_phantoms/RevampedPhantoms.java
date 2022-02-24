@@ -13,6 +13,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import revamped_phantoms.config.RevampedPhantomsConfig;
 import revamped_phantoms.entity.Shockwave;
 
@@ -20,6 +22,7 @@ import java.util.function.Supplier;
 
 public class RevampedPhantoms {
     public static final String MOD_ID = "revamped_phantoms";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     private static final ResourceLocation shockwave_id = new ResourceLocation(MOD_ID, "shockwave");
     // We can use this if we don't want to use DeferredRegister
     public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));

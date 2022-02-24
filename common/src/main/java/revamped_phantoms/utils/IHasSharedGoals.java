@@ -1,5 +1,5 @@
 package revamped_phantoms.utils;
 
 public interface IHasSharedGoals {
-    SharedGoalHolder getGoalHolder();
+    SharedGoalHolder revamped_phantoms_getGoalHolder();
 }

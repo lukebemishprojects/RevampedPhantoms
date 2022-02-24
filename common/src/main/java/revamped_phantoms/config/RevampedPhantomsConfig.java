@@ -2,6 +2,7 @@ package revamped_phantoms.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import dev.architectury.platform.Platform;
 import revamped_phantoms.RevampedPhantoms;
 
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RevampedPhantomsConfig {
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -25,6 +28,7 @@ public class RevampedPhantomsConfig {
     private int ticksStunDuration = 6*20;
     private boolean phantomsGrabPrey = true;
     private boolean doDaylightSpawns = true;
+    private List<String> phantom_attack_blacklist = new ArrayList<>();
 
     private static RevampedPhantomsConfig load() {
         RevampedPhantomsConfig config = new RevampedPhantomsConfig();
@@ -34,6 +38,8 @@ public class RevampedPhantomsConfig {
             save(config);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            RevampedPhantoms.LOGGER.error("Could not load config (it may be out of date). Using default config.");
         }
         return config;
     }
@@ -97,5 +103,9 @@ public class RevampedPhantomsConfig {
 
     public int getTicksStunDuration() {
         return ticksStunDuration;
+    }
+
+    public List<String> getPhantomAttackBlacklist() {
+        return phantom_attack_blacklist;
     }
 }

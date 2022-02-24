@@ -52,7 +52,7 @@ public abstract class PhantomMixin extends Mob implements IHasSharedGoals {
     }
 
     @Override
-    public SharedGoalHolder getGoalHolder() {
+    public SharedGoalHolder revamped_phantoms_getGoalHolder() {
         return revamped_phantoms_goalHolder;
     }
 
