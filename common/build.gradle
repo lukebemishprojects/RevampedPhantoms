@@ -14,12 +14,6 @@ loom {
     accessWidenerPath = gradle.rootProject.project("fabric").file("src/main/resources/revamped_phantoms.accessWidener")
 }
 
-afterEvaluate {
-    remapJar {
-        remapAccessWidener.set(false)
-    }
-}
-
 publishing {
     publications {
         mavenCommon(MavenPublication) {

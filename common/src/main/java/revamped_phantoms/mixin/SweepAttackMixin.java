@@ -17,7 +17,7 @@ import revamped_phantoms.utils.IHasSharedGoals;
 
 @Mixin(targets = {"net/minecraft/world/entity/monster/Phantom$PhantomSweepAttackGoal"})
 public abstract class SweepAttackMixin extends Goal {
-    @Shadow
+    @Shadow(aliases = {"this$0","field_7333"})
     @Final
     Phantom this$0;
 

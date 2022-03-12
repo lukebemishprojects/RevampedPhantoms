@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[38,)"
+loaderVersion = "[40,)"
 issueTrackerURL = "https://github.com/lukebemish/revamped_phantoms/issues"
 license = "LGPL v3"
 
@@ -16,20 +16,20 @@ Description here
 [[dependencies.revamped_phantoms]]
 modId = "forge"
 mandatory = true
-versionRange = "[38,)"
+versionRange = "[40,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.revamped_phantoms]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.18,)"
+versionRange = "[1.18.2,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.revamped_phantoms]]
 modId = "architectury"
 mandatory = true
-versionRange = "[3.3.7,)"
+versionRange = "[4.1.32,)"
 ordering = "AFTER"
 side = "BOTH"
