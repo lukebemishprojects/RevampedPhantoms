@@ -18,12 +18,12 @@ public class MoveControlMixin {
     @Final
     Phantom this$0;
 
-    @ModifyArgs(method="tick", at=@At(value = "INVOKE",
-            target = "Lnet/minecraft/util/Mth;approach(FFF)F"))
-    private void revamped_phantoms$modifyPhantomMaxSpeed(Args args) {
-        float original = args.get(1);
+    @ModifyArg(method="tick", at=@At(value = "INVOKE",
+            target = "Lnet/minecraft/util/Mth;approach(FFF)F"), index=1)
+    private float revamped_phantoms$modifyPhantomMaxSpeed(float original) {
         if (this$0.getTarget() != null && this$0.getTarget().isFallFlying()) {
-            args.set(1, original*RevampedPhantoms.getConfig().getPhantomElytraPursueModifier());
+            return original*RevampedPhantoms.getConfig().getPhantomElytraPursueModifier();
         }
+        return original;
     }
 }
