@@ -1,3 +1,7 @@
+### Revamped Phantoms v0.2.3
+
+- 1.18.2 Compat
+
 ### Revamped Phantoms v0.2.1
 
 - Phantoms now can *almost* keep up with flying players.

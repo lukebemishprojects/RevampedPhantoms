@@ -17,9 +17,9 @@ import revamped_phantoms.utils.IHasSharedGoals;
 
 @Mixin(targets = {"net/minecraft/world/entity/monster/Phantom$PhantomSweepAttackGoal"})
 public abstract class SweepAttackMixin extends Goal {
-    @Shadow(aliases = {"this$0","field_7333"})
+    @Shadow
     @Final
-    Phantom this$0;
+    Phantom field_7333;
 
     @Redirect(method = {"tick"},
             at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/monster/Phantom;attackPhase:Lnet/minecraft/world/entity/monster/Phantom$AttackPhase;",
@@ -38,15 +38,15 @@ public abstract class SweepAttackMixin extends Goal {
     @Inject(method = "tick", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Phantom;doHurtTarget(Lnet/minecraft/world/entity/Entity;)Z"))
     private void revamped_phantoms_onHurtsTarget(CallbackInfo ci) {
         if (RevampedPhantoms.getConfig().isPhantomsGrabPrey()) {
-            ((IHasSharedGoals) this$0).revamped_phantoms_getGoalHolder().shouldGrab = true;
+            ((IHasSharedGoals) field_7333).revamped_phantoms_getGoalHolder().shouldGrab = true;
         }
     }
 
     @Inject(method = "canUse", at=@At("RETURN"), cancellable = true)
     private void revamped_phantoms_canUse(CallbackInfoReturnable<Boolean> ci) {
-        boolean shouldOnlyCarry = this$0.getTarget() instanceof Animal;
-        boolean isFlying = this$0.getTarget() != null && this$0.getTarget().isFallFlying();
+        boolean shouldOnlyCarry = field_7333.getTarget() instanceof Animal;
+        boolean isFlying = field_7333.getTarget() != null && field_7333.getTarget().isFallFlying();
         boolean old = ci.getReturnValue();
-        ci.setReturnValue(old && (!(((IHasSharedGoals)this$0).revamped_phantoms_getGoalHolder().shouldGrab || shouldOnlyCarry)) || isFlying);
+        ci.setReturnValue(old && (!(((IHasSharedGoals) field_7333).revamped_phantoms_getGoalHolder().shouldGrab || shouldOnlyCarry)) || isFlying);
     }
 }
