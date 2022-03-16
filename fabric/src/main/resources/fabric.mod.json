@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "revamped_phantoms.fabric.RevampedPhantomsFabric"
+      "com.github.lukebemish.revamped_phantoms.fabric.RevampedPhantomsFabric"
     ],
     "client": [
-      "revamped_phantoms.fabric.RevampedPhantomsClientFabric"
+      "com.github.lukebemish.revamped_phantoms.fabric.RevampedPhantomsClientFabric"
     ]
   },
   "mixins": [
