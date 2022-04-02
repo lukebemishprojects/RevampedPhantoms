@@ -4,18 +4,19 @@
   "package": "com.github.lukebemish.revamped_phantoms.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ICooldownInstanceMixin",
-    "EntityMixin",
-    "IItemCooldownsMixin",
-    "PhantomMixin",
-    "IPhantomMixin",
-    "PlayerMixin",
-    "ILivingEntityMixin",
     "BiomeDefaultFeaturesMixin",
-    "SweepAttackMixin",
+    "EntityMixin",
+    "ICooldownInstanceMixin",
     "IEntityMixin",
+    "IItemCooldownsMixin",
+    "ILivingEntityMixin",
+    "IPhantomMixin",
+    "MoveControlMixin",
+    "PhantomMixin",
+    "PlayerMixin",
+    "ProjectileUtilMixin",
     "SpawnPlacementsMixin",
-    "MoveControlMixin"
+    "SweepAttackMixin"
   ],
   "client": [
     "ClientMouseHandlerMixin"
