@@ -1,9 +1,11 @@
 package dev.lukebemish.revampedphantoms.fabric;
 
-import dev.lukebemish.revampedphantoms.ClientPlatform;
+import dev.lukebemish.revampedphantoms.client.ClientPlatform;
 import dev.lukebemish.revampedphantoms.ModConfig;
 import dev.lukebemish.revampedphantoms.Platform;
 import dev.lukebemish.revampedphantoms.RevampedPhantoms;
+import dev.lukebemish.revampedphantoms.fabric.client.ModClient;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
@@ -41,6 +43,9 @@ public class ModEntrypoint implements ModInitializer, Platform {
 
     @Override
     public @Nullable ClientPlatform client() {
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            return ModClient.INSTANCE;
+        }
         return null;
     }
 

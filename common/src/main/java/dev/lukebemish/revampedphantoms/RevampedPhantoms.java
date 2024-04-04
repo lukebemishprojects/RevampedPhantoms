@@ -1,5 +1,7 @@
 package dev.lukebemish.revampedphantoms;
 
+import dev.lukebemish.revampedphantoms.client.ClientPlatform;
+import dev.lukebemish.revampedphantoms.client.RevampedPhantomsClient;
 import dev.lukebemish.revampedphantoms.effect.StunnedEffect;
 import dev.lukebemish.revampedphantoms.entity.Shockwave;
 import net.minecraft.core.registries.Registries;
@@ -58,6 +60,10 @@ public class RevampedPhantoms {
             throw new IllegalStateException("Already initialized");
         }
         INSTANCE = new RevampedPhantoms(platform);
+        ClientPlatform clientPlatform;
+        if ((clientPlatform = platform.client()) != null) {
+            RevampedPhantomsClient.initialize(platform, clientPlatform);
+        }
     }
 
     public static RevampedPhantoms instance() {

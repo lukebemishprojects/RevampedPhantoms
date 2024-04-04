@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(PhantomSpawner.class)
 public class PhantomSpawnerMixin {
     @ModifyExpressionValue(
-        method = "tick(Lnet/minecraft/server/level/ServerLevel;ZZ)V",
+        method = "tick(Lnet/minecraft/server/level/ServerLevel;ZZ)I",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/stats/ServerStatsCounter;getValue(Lnet/minecraft/stats/Stat;)Z"
+            target = "Lnet/minecraft/stats/ServerStatsCounter;getValue(Lnet/minecraft/stats/Stat;)I"
         )
     )
     private int revamped_phantoms$makePhantomsSpawnMoreOften(int value) {

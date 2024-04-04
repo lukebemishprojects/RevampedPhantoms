@@ -8,6 +8,8 @@ plugins {
     alias libs.plugins.opensesame
 }
 
+opensesame.apply(sourceSets.main)
+
 modsDotGroovy {
 	platform = Platform.NEOFORGE
 	inferGather.set false

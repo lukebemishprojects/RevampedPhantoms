@@ -1,6 +1,7 @@
 plugins {
     id 'idea'
     alias libs.plugins.mdg apply false
+    alias libs.plugins.opensesame apply false
     alias cLibs.plugins.managedversioning
     alias libs.plugins.architectury.loom apply false
 }

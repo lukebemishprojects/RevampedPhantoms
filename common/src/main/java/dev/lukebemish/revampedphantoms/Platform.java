@@ -1,6 +1,6 @@
 package dev.lukebemish.revampedphantoms;
 
-import dev.lukebemish.codecextras.config.ConfigType;
+import dev.lukebemish.revampedphantoms.client.ClientPlatform;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
