@@ -1,0 +1,44 @@
+plugins {
+    id 'idea'
+    alias libs.plugins.mdg apply false
+    alias cLibs.plugins.managedversioning
+    alias libs.plugins.architectury.loom apply false
+}
+
+managedVersioning {
+    versionFile.set project.file('version.properties')
+    metadataVersion.set libs.versions.minecraft
+
+    gitHubActions {
+        release {
+            prettyName.set 'Release'
+            workflowDispatch.set(true)
+            gradleJob {
+                buildCache()
+                name.set 'build'
+                step {
+                    setupGitUser()
+                }
+                readOnly.set false
+                gradlew 'Tag Release', 'tagRelease'
+                gradlew 'Build', 'build'
+                step {
+                    run.set 'git push && git push --tags'
+                }
+                recordVersion 'Record Version', 'version'
+            }
+            gradleJob {
+                buildCache()
+                name.set 'publish'
+                needs.add('build')
+                tag.set('${{needs.build.outputs.version}}')
+                gradlew 'Publish', 'modrinth', 'curseforge'
+                modPublishing()
+            }
+        }
+    }
+}
+
+managedVersioning.apply()
+
+println "Building: $version"

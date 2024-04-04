@@ -1,0 +1,34 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net'
+        }
+
+        maven {
+            name = "Luke's Maven"
+            url = 'https://maven.lukebemish.dev/releases'
+        }
+
+        maven {
+            name = 'Architectury'
+            url "https://maven.architectury.dev/"
+        }
+
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'dev.lukebemish.conventions' version '0.1.8'
+}
+
+rootProject.name = 'revampedphantoms'
+include("common", "neoforge", "fabric")
