@@ -20,14 +20,15 @@ import java.util.function.Supplier;
 public class RevampedPhantoms {
     public static final String MOD_ID = "revamped_phantoms";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final TagKey<EntityType<?>> PHANTOM_ATTACK_BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, id("phantom_attack_blacklist"));
-
-    private static @Nullable RevampedPhantoms INSTANCE;
-
     private static final ResourceLocation ROOT_ID = new ResourceLocation(MOD_ID, MOD_ID);
     public static ResourceLocation id(String path) {
         return ROOT_ID.withPath(path);
     }
+
+
+    public static final TagKey<EntityType<?>> PHANTOM_ATTACK_BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, id("phantoms_do_not_attack"));
+
+    private static @Nullable RevampedPhantoms INSTANCE;
 
     public final Supplier<MobEffect> stunned;
     public final Supplier<EntityType<Shockwave>> shockwave;

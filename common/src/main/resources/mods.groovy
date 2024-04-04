@@ -16,7 +16,7 @@ MultiplatformModsDotGroovy.make {
         description = buildProperties.mod_description
 
         entrypoints {
-            main = 'dev.lukebemish.revampedphantoms.RevampedPhantomsFabric'
+            main = 'dev.lukebemish.revampedphantoms.fabric.ModEntrypoint'
         }
 
         dependencies {

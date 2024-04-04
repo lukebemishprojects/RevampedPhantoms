@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class ModEntrypoint implements ModInitializer, Platform {
     final ModConfig config;
 
-    ModEntrypoint() {
+    public ModEntrypoint() {
         this.config = ModConfig.handle(FabricLoader.getInstance().getConfigDir()).load();
     }
 
