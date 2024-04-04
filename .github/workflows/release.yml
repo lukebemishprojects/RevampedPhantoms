@@ -117,16 +117,14 @@
                 },
                 {
                     "name": "Publish",
-                    "run": "./gradlew publish closeAndReleaseSonatypeStagingRepository",
+                    "run": "./gradlew modrinth curseforge",
                     "id": "publish",
                     "env": {
                         "BUILD_CACHE_PASSWORD": "${{ secrets.BUILD_CACHE_PASSWORD }}",
                         "BUILD_CACHE_USER": "${{ secrets.BUILD_CACHE_USER }}",
                         "BUILD_CACHE_URL": "${{ secrets.BUILD_CACHE_URL }}",
-                        "SONATYPE_PASSWORD": "${{ secrets.SONATYPE_PASSWORD }}",
-                        "SONATYPE_USER": "${{ secrets.SONATYPE_USER }}",
-                        "GPG_KEY": "${{ secrets.GPG_KEY }}",
-                        "GPG_PASSWORD": "${{ secrets.GPG_PASSWORD }}"
+                        "CURSEFORGE_KEY": "${{ secrets.CURSEFORGE_KEY }}",
+                        "MODRINTH_KEY": "${{ secrets.MODRINTH_KEY }}"
                     }
                 }
             ]
