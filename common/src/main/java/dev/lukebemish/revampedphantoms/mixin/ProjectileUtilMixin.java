@@ -25,7 +25,7 @@ public class ProjectileUtilMixin {
         if (self == shooter) {
             var vehicle = operation.call(self);
             if (vehicle.getType() == EntityType.PHANTOM) {
-                return vehicle;
+                return self;
             }
         }
         return operation.call(self);

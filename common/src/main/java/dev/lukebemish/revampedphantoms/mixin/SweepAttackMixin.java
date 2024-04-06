@@ -40,13 +40,13 @@ public abstract class SweepAttackMixin extends Goal {
     )
     private void revamped_phantoms$setAttackMode(Phantom owner, @Coerce Object phase, Operation<Void> operation) {
         if (owner.getTarget() != null && owner.getTarget().isFallFlying() && !((owner.horizontalCollision || owner.hurtTime > 0))) {
-            operation.call(Accessors.getSwoopPhase());
+            operation.call(owner, Accessors.getSwoopPhase());
             if (RevampedPhantoms.instance().platform.config().phantomsGrabPrey()) {
                 ((HasSharedGoals) owner).revamped_phantoms$getGoalHolder().shouldGrab = true;
             }
             return;
         }
-        operation.call(phase);
+        operation.call(owner, phase);
     }
 
     @Inject(
