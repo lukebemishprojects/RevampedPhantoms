@@ -59,11 +59,6 @@ public record ModConfig(
 		}
 
 		@Override
-		public String name() {
-			return CONFIG_NAME;
-		}
-
-		@Override
 		public ModConfig defaultConfig() {
 			return ModConfig.DEFAULT;
 		}
@@ -71,6 +66,6 @@ public record ModConfig(
 
 	public static ConfigType.ConfigHandle<ModConfig> handle(Path configDir) {
 		Path configPath = configDir.resolve(Type.CONFIG_NAME);
-		return new Type().handle(configPath, GsonOpsIo.INSTANCE, RevampedPhantoms.LOGGER);
+		return new Type().handle(configPath, GsonOpsIo.INSTANCE);
 	}
 }

@@ -37,11 +37,6 @@ repositories {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
-
-    // TODO: remove
-    maven {
-        url "https://maven.lukebemish.dev/snapshots/"
-    }
 }
 
 publishing {

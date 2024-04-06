@@ -15,12 +15,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class RevampedPhantoms {
 	public static final String MOD_ID = "revamped_phantoms";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static final ResourceLocation ROOT_ID = new ResourceLocation(MOD_ID, MOD_ID);
 	public static ResourceLocation id(String path) {
 		return ROOT_ID.withPath(path);
