@@ -6,6 +6,8 @@ plugins {
 	alias libs.plugins.architectury.loom
 	alias libs.plugins.mdg
 	alias libs.plugins.opensesame
+	alias libs.plugins.curseforgegradle
+	alias libs.plugins.minotaur
 }
 
 opensesame.apply(sourceSets.main)
