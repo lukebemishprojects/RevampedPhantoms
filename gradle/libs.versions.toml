@@ -15,6 +15,9 @@ opensesame = "0.5.3"
 
 architectury_loom = "1.6.392"
 
+minotaur = "2.8.7"
+curseforgegradle = "1.1.18"
+
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 
@@ -32,3 +35,5 @@ mdg = { id = "org.groovymc.modsdotgroovy", version.ref = "mdg" }
 architectury_loom = { id = "dev.architectury.loom", version.ref = "architectury_loom" }
 opensesame = { id = "dev.lukebemish.opensesame", version.ref = "opensesame" }
 opensesame_loom = { id = "dev.lukebemish.opensesame.loom", version.ref = "opensesame" }
+minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
+curseforgegradle = {id = "net.darkhax.curseforgegradle", version.ref = "curseforgegradle"}

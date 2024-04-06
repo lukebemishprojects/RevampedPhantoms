@@ -7,6 +7,8 @@ plugins {
 	alias libs.plugins.mdg
 	alias libs.plugins.opensesame
 	alias libs.plugins.opensesame.loom
+	alias libs.plugins.curseforgegradle
+	alias libs.plugins.minotaur
 }
 
 opensesame.apply(sourceSets.main)
@@ -57,6 +59,43 @@ loom {
 			setConfigName("Fabric Server")
 			ideConfigGenerated(true)
 			runDir("runserver")
+		}
+	}
+}
+
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
+if (System.getenv('CURSEFORGE_KEY')) {
+	tasks.register('curseforge', TaskPublishCurseForge) {
+		disableVersionDetection()
+		apiToken = System.getenv('CURSEFORGE_KEY')
+		def projectId = '575418'
+		def mainFile = upload(projectId, tasks.remapJar)
+		mainFile.displayName = "Revamped Phantoms [Fabric/Quilt] v$project.version"
+		mainFile.releaseType = "${project.release_type}"
+		mainFile.addModLoader('Fabric', 'Quilt')
+		mainFile.addGameVersion("${libs.versions.minecraft.get()}")
+		mainFile.addRequirement("fabric-api")
+		mainFile.changelog = ''
+	}
+
+	afterEvaluate {
+		tasks.curseforge.dependsOn tasks.remapJar
+	}
+}
+
+if (System.getenv('MODRINTH_KEY')) {
+	modrinth {
+		token = System.getenv('MODRINTH_KEY')
+		projectId = 'YJOG99cQ'
+		versionNumber = "$project.version"
+		versionType = "${project.release_type}"
+		detectLoaders = false
+		uploadFile = remapJar
+		gameVersions = ["${libs.versions.minecraft.get()}"]
+		loaders = ['fabric', 'quilt']
+		dependencies {
+			required.project 'fabric-api'
 		}
 	}
 }
