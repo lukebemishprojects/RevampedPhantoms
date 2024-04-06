@@ -5,7 +5,7 @@ plugins {
 	id 'convention.consumer'
 	alias libs.plugins.architectury.loom
 	alias libs.plugins.mdg
-    alias libs.plugins.opensesame
+	alias libs.plugins.opensesame
 }
 
 opensesame.apply(sourceSets.main)
@@ -39,11 +39,11 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
 	}
 
-    implementation libs.codecextras
-    include libs.codecextras
+	implementation libs.codecextras
+	include libs.codecextras
 
-    implementation libs.opensesame.core
-    include libs.opensesame.core
+	implementation libs.opensesame.core
+	include libs.opensesame.core
 }
 
 loom {

@@ -1,20 +1,20 @@
 plugins {
 	id 'convention.shared'
-    alias libs.plugins.mdg
+	alias libs.plugins.mdg
 	alias libs.plugins.architectury.loom
-    alias libs.plugins.opensesame
+	alias libs.plugins.opensesame
 }
 
 opensesame.apply(sourceSets.main)
 
 modsDotGroovy {
-    multiplatform.expose()
-    gather {
-        projectProperty 'mod_description'
-        projectProperty 'mod_id'
-        projectProperty 'mod_name'
-    }
-    apply()
+	multiplatform.expose()
+	gather {
+		projectProperty 'mod_description'
+		projectProperty 'mod_id'
+		projectProperty 'mod_name'
+	}
+	apply()
 }
 
 configurations {
@@ -47,8 +47,8 @@ dependencies {
 	minecraft libs.minecraft
 	modCompileOnly libs.fabric.loader
 
-    compileOnly libs.codecextras
-    compileOnly libs.opensesame.core
+	compileOnly libs.codecextras
+	compileOnly libs.opensesame.core
 }
 
 artifacts {

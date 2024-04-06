@@ -11,17 +11,17 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(targets = {"net/minecraft/world/entity/monster/Phantom$PhantomMoveControl"})
 public abstract class MoveControlMixin extends MoveControl {
 
-    public MoveControlMixin(Mob mob) {
-        super(mob);
-    }
+	public MoveControlMixin(Mob mob) {
+		super(mob);
+	}
 
-    @ModifyArg(method="tick()V", at=@At(value = "INVOKE",
-        target = "Lnet/minecraft/util/Mth;approach(FFF)F"), index=1)
-    private float revamped_phantoms$modifyPhantomMaxSpeed(float original) {
-        Phantom phantom = (Phantom) this.mob;
-        if (phantom.getTarget() != null && phantom.getTarget().isFallFlying()) {
-            return original * RevampedPhantoms.instance().platform.config().phantomElytraPursueModifier();
-        }
-        return original;
-    }
+	@ModifyArg(method="tick()V", at=@At(value = "INVOKE",
+		target = "Lnet/minecraft/util/Mth;approach(FFF)F"), index=1)
+	private float revamped_phantoms$modifyPhantomMaxSpeed(float original) {
+		Phantom phantom = (Phantom) this.mob;
+		if (phantom.getTarget() != null && phantom.getTarget().isFallFlying()) {
+			return original * RevampedPhantoms.instance().platform.config().phantomElytraPursueModifier();
+		}
+		return original;
+	}
 }

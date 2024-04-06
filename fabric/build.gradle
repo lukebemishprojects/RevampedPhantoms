@@ -5,8 +5,8 @@ plugins {
 	id 'convention.consumer'
 	alias libs.plugins.architectury.loom
 	alias libs.plugins.mdg
-    alias libs.plugins.opensesame
-    alias libs.plugins.opensesame.loom
+	alias libs.plugins.opensesame
+	alias libs.plugins.opensesame.loom
 }
 
 opensesame.apply(sourceSets.main)
@@ -34,11 +34,11 @@ dependencies {
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 
-    implementation libs.codecextras
-    include libs.codecextras
+	implementation libs.codecextras
+	include libs.codecextras
 
-    modImplementation libs.opensesame.fabric
-    include libs.opensesame.fabric
+	modImplementation libs.opensesame.fabric
+	include libs.opensesame.fabric
 }
 
 loom {

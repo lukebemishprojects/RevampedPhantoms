@@ -11,14 +11,13 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = MouseHandler.class, priority = 499)
 public class ClientMouseHandlerMixin {
-    @Unique
-    public boolean revamped_phantoms$cachedSmoothCamera;
+	@Unique public boolean revamped_phantoms$cachedSmoothCamera;
 
-    @ModifyExpressionValue(
-        method = "turnPlayer()V",
-        at = @At(value = "FIELD", target = "Lnet/minecraft/client/Options;smoothCamera:Z", opcode = Opcodes.GETFIELD)
-    )
-    private boolean revamped_phantoms$smoothCam(boolean smoothCamera) {
-        return smoothCamera || (Minecraft.getInstance().player != null && Minecraft.getInstance().player.hasEffect(RevampedPhantoms.instance().stunned.get()));
-    }
+	@ModifyExpressionValue(
+		method = "turnPlayer()V",
+		at = @At(value = "FIELD", target = "Lnet/minecraft/client/Options;smoothCamera:Z", opcode = Opcodes.GETFIELD)
+	)
+	private boolean revamped_phantoms$smoothCam(boolean smoothCamera) {
+		return smoothCamera || (Minecraft.getInstance().player != null && Minecraft.getInstance().player.hasEffect(RevampedPhantoms.instance().stunned.get()));
+	}
 }
