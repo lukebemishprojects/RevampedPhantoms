@@ -33,6 +33,11 @@ repositories {
 	}
 }
 
+configurations {
+	localRuntime.extendsFrom localImplementation
+	compileOnly.extendsFrom localImplementation
+}
+
 dependencies {
 	minecraft libs.minecraft
 	neoForge libs.neoforge
@@ -41,10 +46,10 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
 	}
 
-	implementation libs.codecextras
+	localImplementation libs.codecextras
 	include libs.codecextras
 
-	implementation libs.opensesame.core
+	localImplementation libs.opensesame.core
 	include libs.opensesame.core
 }
 
