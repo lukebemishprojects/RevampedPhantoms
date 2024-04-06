@@ -20,7 +20,7 @@ MultiplatformModsDotGroovy.make {
         }
 
         dependencies {
-            minecraft = ">= ${libs.versions.minecraft}"
+            minecraft = ">=${libs.versions.minecraft}"
             onNeoForge {
                 neoforge = ">=${libs.versions.neoforge}"
             }
