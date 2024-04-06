@@ -91,7 +91,6 @@ if (System.getenv('CURSEFORGE_KEY')) {
 		mainFile.releaseType = "${project.release_type}"
 		mainFile.addModLoader('NeoForge')
 		mainFile.addGameVersion("${libs.versions.minecraft.get()}")
-		mainFile.addRequirement("fabric-api")
 		mainFile.changelog = ''
 	}
 
@@ -110,8 +109,5 @@ if (System.getenv('MODRINTH_KEY')) {
 		uploadFile = remapJar
 		gameVersions = ["${libs.versions.minecraft.get()}"]
 		loaders = ['neoforge']
-		dependencies {
-			required.project 'fabric-api'
-		}
 	}
 }
