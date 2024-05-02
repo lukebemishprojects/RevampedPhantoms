@@ -1,45 +1,227 @@
+import me.modmuss50.mpp.ReleaseType
+
 plugins {
-    id 'idea'
-    alias libs.plugins.mdg apply false
-    alias libs.plugins.opensesame apply false
-    alias cLibs.plugins.managedversioning
-    alias libs.plugins.architectury.loom apply false
+	id 'maven-publish'
+	id 'java-library'
+	alias libs.plugins.managedversioning
+	alias libs.plugins.modsdotgroovy
+	alias libs.plugins.modpublish
+	alias libs.plugins.opensesame
+}
+
+opensesame {
+	apply(sourceSets.main)
+	apply(sourceSets.fabric)
+	apply(sourceSets.neoforge)
 }
 
 managedVersioning {
-    versionFile.set project.file('version.properties')
-    metadataVersion.set libs.versions.minecraft
+	versionFile.set rootProject.file('version.properties')
+	metadataVersion.set libs.versions.minecraft
+	versionPRs()
+	versionSnapshots()
 
-    gitHubActions {
-        release {
-            prettyName.set 'Release'
-            workflowDispatch.set(true)
-            gradleJob {
-                buildCache()
-                name.set 'build'
-                step {
-                    setupGitUser()
-                }
-                readOnly.set false
-                gradlew 'Tag Release', 'tagRelease'
-                gradlew 'Build', 'build'
-                step {
-                    run.set 'git push && git push --tags'
-                }
-                recordVersion 'Record Version', 'version'
-            }
-            gradleJob {
-                buildCache()
-                name.set 'publish'
-                needs.add('build')
-                tag.set('${{needs.build.outputs.version}}')
-                gradlew 'Publish', 'modrinth', 'curseforge'
-                modPublishing()
-            }
-        }
-    }
+	gitHubActions {
+		release {
+			prettyName.set 'Release'
+			workflowDispatch.set(true)
+			gradleJob {
+				name.set 'build'
+				javaVersion.set '21'
+				buildCache()
+				step {
+					setupGitUser()
+				}
+				readOnly.set false
+				gradlew 'Tag Release', 'tagRelease'
+				gradlew 'Build', 'build'
+				step {
+					run.set 'git push && git push --tags'
+				}
+				dependencySubmission()
+				recordVersion 'Record Version', 'version'
+				mavenRelease('github')
+				modPublishing()
+			}
+			gradleJob {
+				name.set 'publishMod'
+				javaVersion.set '21'
+				buildCache()
+				needs.add('build')
+				tag.set('${{needs.build.outputs.version}}')
+				gradlew 'Publish', 'publishMods'
+				mavenRelease('github')
+				modPublishing()
+			}
+		}
+	}
 }
 
 managedVersioning.apply()
 
 println "Building: $version"
+
+modsDotGroovy {
+	multiplatform.expose()
+	gather {
+		projectProperty('mod_id')
+		projectProperty('mod_name')
+		projectProperty('mod_description')
+	}
+}
+
+sourceSets.neoforge.modsDotGroovy {
+	platform = org.groovymc.modsdotgroovy.core.Platform.NEOFORGE
+	inferGather.set false
+	multiplatform.from(':', 'main')
+	gather {
+		minecraftVersion = libs.versions.minecraft.get()
+		platformVersion = libs.versions.neoforge.get()
+	}
+	enable()
+}
+
+sourceSets.fabric.modsDotGroovy {
+	platform = org.groovymc.modsdotgroovy.core.Platform.FABRIC
+	inferGather.set false
+	multiplatform.from(':', 'main')
+	gather {
+		minecraftVersion = libs.versions.minecraft.get()
+		platformVersion = libs.versions.fabric.loader.get()
+	}
+	enable()
+}
+
+dependencies {
+	compileOnly cLibs.bundles.compileonly
+	annotationProcessor cLibs.bundles.annotationprocessor
+	compileOnly libs.fabric.mixin
+	compileOnly libs.mixinextras.common
+	compileOnly libs.opensesame.core
+	compileOnly libs.codecextras
+
+	fabricCompileOnly cLibs.bundles.compileonly
+	fabricAnnotationProcessor cLibs.bundles.annotationprocessor
+
+	fabricImplementation libs.opensesame.fabric
+	fabricInclude libs.opensesame.fabric
+	fabricImplementation libs.codecextras
+	fabricInclude libs.codecextras
+
+	modFabricImplementation libs.fabric.loader
+	modFabricImplementation libs.fabric.api
+
+	neoforgeCompileOnly cLibs.bundles.compileonly
+	neoforgeAnnotationProcessor cLibs.bundles.annotationprocessor
+
+	neoforgeLocalImplementation libs.opensesame.core
+	neoforgeInclude libs.opensesame.core
+	neoforgeLocalImplementation libs.codecextras
+	neoforgeInclude libs.codecextras
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+	registerFeature("neoforge") {
+		usingSourceSet sourceSets.neoforge
+		capability(project.group as String, project.name, project.version as String)
+		capability(project.group as String, "$project.name-neoforge", project.version as String)
+		withSourcesJar()
+		withJavadocJar()
+	}
+	registerFeature("fabric") {
+		usingSourceSet sourceSets.fabric
+		capability(project.group as String, project.name, project.version as String)
+		capability(project.group as String, "$project.name-fabric", project.version as String)
+		withSourcesJar()
+		withJavadocJar()
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
+['sourcesJar', 'fabricSourcesJar', 'neoforgeSourcesJar'].each {
+	tasks.named(it, Jar) {
+		from(files("LICENSE")) {
+			rename { "${it}_${project.name}" }
+		}
+	}
+}
+
+['jar', 'fabricJar', 'neoforgeJar'].each {
+	tasks.named(it, Jar) {
+		from(files("LICENSE")) {
+			rename { "${it}_${project.name}" }
+		}
+
+		manifest {
+			attributes([
+				'Specification-Title'     : mod_name,
+				'Specification-Vendor'    : mod_author,
+				'Specification-Version'   : project.version,
+				'Implementation-Title'    : "$mod_name - ${project.name}",
+				'Implementation-Version'  : project.version,
+				'Implementation-Vendor'   : mod_author,
+				'Built-On-Minecraft'      : libs.versions.minecraft.get(),
+				'Implementation-Commit-Time': managedVersioning.timestamp.get(),
+				'Implementation-Commit': managedVersioning.hash.get()
+			])
+		}
+	}
+}
+
+def releaseType = ReleaseType.values().find { it.name() == project.release_type.toUpperCase(Locale.ROOT) } ?: ReleaseType.STABLE
+
+publishMods {
+	changelog = ''
+	version = "${project.version}"
+	type = releaseType
+	dryRun = providers.environmentVariable("MODRINTH_KEY").getOrNull() == null || providers.environmentVariable("CURSEFORGE_KEY").getOrNull() == null
+
+	curseforge('curseforgeFabric') {
+		file = tasks.remapFabricJar.archiveFile
+		displayName = "${project.mod_name} [Fabric/Quilt] v${project.version}"
+		projectId = project.curseforge_id
+		accessToken = System.getenv('CURSEFORGE_KEY')
+		modLoaders = ['fabric', 'quilt']
+		minecraftVersions = [libs.versions.minecraft.get()]
+		requires('fabric-api')
+	}
+
+	curseforge('curseforgeNeoforge') {
+		file = tasks.remapNeoforgeJar.archiveFile
+		displayName = "${project.mod_name} [NeoForge] v${project.version}"
+		projectId = project.curseforge_id
+		accessToken = System.getenv('CURSEFORGE_KEY')
+		modLoaders = ['neoforge']
+		minecraftVersions = [libs.versions.minecraft.get()]
+	}
+
+	modrinth('modrinthFabric') {
+		file = tasks.remapFabricJar.archiveFile
+		displayName = "${project.mod_name} [Fabric/Quilt] v${project.version}"
+		projectId = project.modrinth_id
+		accessToken = System.getenv('MODRINTH_KEY')
+		minecraftVersions = [libs.versions.minecraft.get()]
+		modLoaders = ['fabric', 'quilt']
+		requires('fabric-api')
+	}
+
+	modrinth('modrinthNeoforge') {
+		file = tasks.remapNeoforgeJar.archiveFile
+		displayName = "${project.mod_name} [NeoForge] v${project.version}"
+		projectId = project.modrinth_id
+		accessToken = System.getenv('MODRINTH_KEY')
+		minecraftVersions = [libs.versions.minecraft.get()]
+		modLoaders = ['neoforge']
+	}
+}

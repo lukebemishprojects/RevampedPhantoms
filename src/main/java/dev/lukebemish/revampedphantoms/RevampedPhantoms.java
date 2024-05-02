@@ -4,7 +4,6 @@ import dev.lukebemish.revampedphantoms.client.ClientPlatform;
 import dev.lukebemish.revampedphantoms.client.RevampedPhantomsClient;
 import dev.lukebemish.revampedphantoms.effect.StunnedEffect;
 import dev.lukebemish.revampedphantoms.entity.Shockwave;
-import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -15,6 +14,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.jspecify.annotations.Nullable;
+
+import java.util.function.Supplier;
 
 public class RevampedPhantoms {
 	public static final String MOD_ID = "revamped_phantoms";
@@ -36,7 +37,7 @@ public class RevampedPhantoms {
 	private RevampedPhantoms(Platform platform) {
 		this.stunned = platform.register(
 			Registries.MOB_EFFECT,
-			() -> new StunnedEffect(MobEffectCategory.HARMFUL, 0x795a94).addAttributeModifier(Attributes.MOVEMENT_SPEED, StunnedEffect.UUID, -0.15f, AttributeModifier.Operation.MULTIPLY_TOTAL),
+			() -> new StunnedEffect(MobEffectCategory.HARMFUL, 0x795a94).addAttributeModifier(Attributes.MOVEMENT_SPEED, StunnedEffect.UUID, -0.15f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
 			id("stunned")
 		);
 		this.shockwave = platform.register(

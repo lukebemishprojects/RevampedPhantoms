@@ -1,9 +1,9 @@
 package dev.lukebemish.revampedphantoms.entity;
 
 import dev.lukebemish.revampedphantoms.RevampedPhantoms;
-import java.util.List;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -16,6 +16,8 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+
+import java.util.List;
 
 public class Shockwave extends AbstractHurtingProjectile {
 	public Shockwave(EntityType<Shockwave> entityType, Level level) {
@@ -60,7 +62,7 @@ public class Shockwave extends AbstractHurtingProjectile {
 				);
 				for (LivingEntity livingEntity : list) {
 					if (!(livingEntity instanceof Phantom)) {
-						livingEntity.addEffect(new MobEffectInstance(RevampedPhantoms.instance().stunned.get(), RevampedPhantoms.instance().platform.config().ticksStunDuration(), 0, false, false));
+						livingEntity.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getResourceKey(RevampedPhantoms.instance().stunned.get()).flatMap(BuiltInRegistries.MOB_EFFECT::getHolder).orElseThrow(), RevampedPhantoms.instance().platform.config().ticksStunDuration(), 0, false, false));
 						livingEntity.hurt(damageSource, 1);
 						if (thrower instanceof LivingEntity livingThrower) {
 							livingThrower.setLastHurtMob(livingEntity);

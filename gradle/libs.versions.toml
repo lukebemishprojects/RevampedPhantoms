@@ -1,39 +1,46 @@
 [versions]
-minecraft = "1.20.4"
-parchment_minecraft = "1.20.2"
-parchment_mappings = "2023.12.10"
+minecraft = "1.20.6"
+parchment = "2024.05.01"
 
-neoforge = "20.4.80-beta"
+neoforge = "20.6.1-beta"
 
-fabric_loader = "0.15.3"
-fabric_api = "0.92.1+1.20.4"
+fabric_loader = "0.15.10"
+fabric_api = "0.97.8+1.20.6"
 
-mdg = "2.0.0-beta.21"
+fabric_mixin = "0.13.3+mixin.0.8.5"
+mixinextras = "0.3.5"
 
-codecextras = "1.0.1"
-opensesame = "0.5.3"
+modsdotgroovy = "2.0.0-beta.22"
 
-architectury_loom = "1.6.392"
+modpublish = "0.5.1"
 
-minotaur = "2.8.7"
-curseforgegradle = "1.1.18"
+managedversioning = "1.2.19"
+
+codecextras = "2.0.0"
+opensesame = "0.5.5"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+
+neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
+
+parchment = { module = "org.parchmentmc.data:parchment-1.20.6", version.ref = "parchment" }
+
+fabric_mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "fabric_mixin" }
+
+mixinextras_common = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinextras" }
+
 codecextras = { module = "dev.lukebemish:codecextras", version.ref = "codecextras" }
 opensesame_core = { module = "dev.lukebemish.opensesame:opensesame-core", version.ref = "opensesame" }
 opensesame_fabric = { module = "dev.lukebemish.opensesame:opensesame-fabric", version.ref = "opensesame" }
 
-neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
-
 [plugins]
 
-mdg = { id = "org.groovymc.modsdotgroovy", version.ref = "mdg" }
-architectury_loom = { id = "dev.architectury.loom", version.ref = "architectury_loom" }
+managedversioning = { id = "dev.lukebemish.managedversioning", version.ref = "managedversioning" }
+modsdotgroovy = { id = "org.groovymc.modsdotgroovy", version.ref = "modsdotgroovy" }
+modpublish = { id = "me.modmuss50.mod-publish-plugin", version.ref = "modpublish" }
 opensesame = { id = "dev.lukebemish.opensesame", version.ref = "opensesame" }
 opensesame_loom = { id = "dev.lukebemish.opensesame.loom", version.ref = "opensesame" }
-minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
-curseforgegradle = {id = "net.darkhax.curseforgegradle", version.ref = "curseforgegradle"}

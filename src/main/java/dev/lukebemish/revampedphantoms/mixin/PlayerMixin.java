@@ -1,6 +1,7 @@
 package dev.lukebemish.revampedphantoms.mixin;
 
 import dev.lukebemish.revampedphantoms.RevampedPhantoms;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +19,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
 	@Inject(method = "getCurrentItemAttackStrengthDelay", at = @At("RETURN"), cancellable = true)
 	private void revamped_phantoms$stunnedDelaying(CallbackInfoReturnable<Float> ci) {
-		if (this.hasEffect(RevampedPhantoms.instance().stunned.get())) {
+		if (this.hasEffect(BuiltInRegistries.MOB_EFFECT.getResourceKey(RevampedPhantoms.instance().stunned.get()).flatMap(BuiltInRegistries.MOB_EFFECT::getHolder).orElseThrow())) {
 			float multiplier = 4.0f;
 			float orig = ci.getReturnValue();
 			ci.setReturnValue(orig * multiplier);

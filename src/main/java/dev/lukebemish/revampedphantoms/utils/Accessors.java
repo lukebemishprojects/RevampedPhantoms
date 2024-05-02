@@ -2,12 +2,16 @@ package dev.lukebemish.revampedphantoms.utils;
 
 import dev.lukebemish.opensesame.annotations.Coerce;
 import dev.lukebemish.opensesame.annotations.Open;
-import java.util.Map;
+import net.minecraft.world.entity.EntityAttachment;
+import net.minecraft.world.entity.EntityAttachments;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
+import java.util.Map;
 
 public final class Accessors {
 	private Accessors() {}
@@ -99,6 +103,15 @@ public final class Accessors {
 		type = Open.Type.SET_INSTANCE
 	)
 	public static void setMoveTargetPoint(Phantom phantom, Vec3 point) {
+		throw new UnsupportedOperationException("Replaced by OpenSesame");
+	}
+
+	@Open(
+		name = "attachments",
+		targetClass = EntityAttachments.class,
+		type = Open.Type.GET_INSTANCE
+	)
+	public static Map<EntityAttachment, List<Vec3>> getAttachments(EntityAttachments attachments) {
 		throw new UnsupportedOperationException("Replaced by OpenSesame");
 	}
 }

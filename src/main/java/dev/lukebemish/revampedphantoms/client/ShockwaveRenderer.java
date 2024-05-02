@@ -12,8 +12,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.AxisAngle4f;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 
@@ -38,19 +36,24 @@ public class ShockwaveRenderer extends EntityRenderer<Shockwave> {
 		matrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
 		matrixStack.mulPose(new Quaternionf(new AxisAngle4f((float) Math.PI,  0, 1f, 0)));
 		PoseStack.Pose pose = matrixStack.last();
-		Matrix4f matrix4f = pose.pose();
-		Matrix3f matrix3f = pose.normal();
 		VertexConsumer vertexConsumer = buffer.getBuffer(RENDER_TYPE);
-		ShockwaveRenderer.vertex(vertexConsumer, matrix4f, matrix3f, packedLight, 0.0f, 0, 0, 1);
-		ShockwaveRenderer.vertex(vertexConsumer, matrix4f, matrix3f, packedLight, 1.0f, 0, 1, 1);
-		ShockwaveRenderer.vertex(vertexConsumer, matrix4f, matrix3f, packedLight, 1.0f, 1, 1, 0);
-		ShockwaveRenderer.vertex(vertexConsumer, matrix4f, matrix3f, packedLight, 0.0f, 1, 0, 0);
+		ShockwaveRenderer.vertex(vertexConsumer, pose, packedLight, 0.0f, 0, 0, 1);
+		ShockwaveRenderer.vertex(vertexConsumer, pose, packedLight, 1.0f, 0, 1, 1);
+		ShockwaveRenderer.vertex(vertexConsumer, pose, packedLight, 1.0f, 1, 1, 0);
+		ShockwaveRenderer.vertex(vertexConsumer, pose, packedLight, 0.0f, 1, 0, 0);
 		matrixStack.popPose();
 		super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
 	}
 
-	private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l) {
-		vertexConsumer.vertex(matrix4f, f - 0.5f, (float)j - 0.25f, 0.0f).color(255, 255, 255, 255).uv(k, l).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(i).normal(matrix3f, 0.0f, 1.0f, 0.0f).endVertex();
+	private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, int packedLight, float x, int y, int u, int v) {
+		consumer
+			.vertex(pose, x - 0.5f, (float)y - 0.25f, 0.0f)
+			.color(255, 255, 255, 255)
+			.uv(u, v)
+			.overlayCoords(OverlayTexture.NO_OVERLAY)
+			.uv2(packedLight)
+			.normal(pose, 0.0f, 1.0f, 0.0f)
+			.endVertex();
 	}
 
 	@Override

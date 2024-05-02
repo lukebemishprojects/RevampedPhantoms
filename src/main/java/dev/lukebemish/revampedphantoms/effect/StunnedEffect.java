@@ -19,8 +19,9 @@ public class StunnedEffect extends MobEffect {
 		return true;
 	}
 
+	@SuppressWarnings("UnreachableCode")
 	@Override
-	public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+	public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
 		if (livingEntity instanceof Player player) {
 			//player.disableShield(true);
 			if (player.tickCount % 4 != 1) {
@@ -38,5 +39,7 @@ public class StunnedEffect extends MobEffect {
 				}
 			}
 		}
+
+		return true;
 	}
 }

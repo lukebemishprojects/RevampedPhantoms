@@ -17,6 +17,5 @@
   "server": [],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "revamped_phantoms.refmap.json"
+  }
 }

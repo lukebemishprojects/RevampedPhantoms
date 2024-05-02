@@ -30,6 +30,7 @@ public abstract class SweepAttackMixin extends Goal {
 		revamped_phantoms$captured = phantom;
 	}
 
+	@SuppressWarnings("UnreachableCode")
 	@WrapOperation(
 		method = "tick()V",
 		at = @At(
