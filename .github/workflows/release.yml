@@ -77,20 +77,6 @@
                     "run": "git push && git push --tags"
                 },
                 {
-                    "name": "Submit Dependencies",
-                    "uses": "gradle/actions/dependency-submission@v3",
-                    "env": {
-                        "BUILD_CACHE_PASSWORD": "${{ secrets.BUILD_CACHE_PASSWORD }}",
-                        "BUILD_CACHE_USER": "${{ secrets.BUILD_CACHE_USER }}",
-                        "BUILD_CACHE_URL": "${{ secrets.BUILD_CACHE_URL }}",
-                        "RELEASE_MAVEN_PASSWORD": "${{ secrets.RELEASE_MAVEN_PASSWORD }}",
-                        "RELEASE_MAVEN_USER": "github",
-                        "RELEASE_MAVEN_URL": "https://maven.lukebemish.dev/releases/",
-                        "CURSEFORGE_KEY": "${{ secrets.CURSEFORGE_KEY }}",
-                        "MODRINTH_KEY": "${{ secrets.MODRINTH_KEY }}"
-                    }
-                },
-                {
                     "name": "Record Version",
                     "run": "./gradlew recordVersion",
                     "id": "record_version",
@@ -109,6 +95,20 @@
                     "name": "Capture Recorded Version",
                     "run": "echo version=$(cat build/recordVersion.txt) >> \"$GITHUB_OUTPUT\"",
                     "id": "record_version_capture_version"
+                },
+                {
+                    "name": "Submit Dependencies",
+                    "uses": "gradle/actions/dependency-submission@v3",
+                    "env": {
+                        "BUILD_CACHE_PASSWORD": "${{ secrets.BUILD_CACHE_PASSWORD }}",
+                        "BUILD_CACHE_USER": "${{ secrets.BUILD_CACHE_USER }}",
+                        "BUILD_CACHE_URL": "${{ secrets.BUILD_CACHE_URL }}",
+                        "RELEASE_MAVEN_PASSWORD": "${{ secrets.RELEASE_MAVEN_PASSWORD }}",
+                        "RELEASE_MAVEN_USER": "github",
+                        "RELEASE_MAVEN_URL": "https://maven.lukebemish.dev/releases/",
+                        "CURSEFORGE_KEY": "${{ secrets.CURSEFORGE_KEY }}",
+                        "MODRINTH_KEY": "${{ secrets.MODRINTH_KEY }}"
+                    }
                 }
             ]
         },

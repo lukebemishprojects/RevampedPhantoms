@@ -38,8 +38,8 @@ managedVersioning {
 				step {
 					run.set 'git push && git push --tags'
 				}
-				dependencySubmission()
 				recordVersion 'Record Version', 'version'
+				dependencySubmission()
 				mavenRelease('github')
 				modPublishing()
 			}
