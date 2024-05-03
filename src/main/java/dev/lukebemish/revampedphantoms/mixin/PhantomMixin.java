@@ -20,8 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,11 +67,17 @@ public abstract class PhantomMixin extends Mob implements HasSharedGoals {
 	)
 	private EntityDimensions revamped_phantoms$getDefaultDimensions(EntityDimensions original) {
 		var attachments = Accessors.getAttachments(original.attachments());
-		Map<EntityAttachment, List<Vec3>> map = new EnumMap<>(EntityAttachment.class);
-		attachments.forEach((k, v) -> map.put(k, new ArrayList<>(v)));
-		map.put(EntityAttachment.PASSENGER, EntityAttachment.Fallback.AT_FEET.create(original.width(), original.height()));
 		var builder = EntityAttachments.builder();
-		map.forEach((k, v) -> v.forEach(p -> builder.attach(k, p)));
+		for (Map.Entry<EntityAttachment, List<Vec3>> entry : attachments.entrySet()) {
+			EntityAttachment key = entry.getKey();
+			List<Vec3> list = entry.getValue();
+			if (key == EntityAttachment.PASSENGER) {
+				list = EntityAttachment.Fallback.AT_FEET.create(original.width(), original.height());
+			}
+			for (Vec3 vec : list) {
+				builder.attach(key, vec);
+			}
+		}
 		return original.withAttachments(builder);
 	}
 }

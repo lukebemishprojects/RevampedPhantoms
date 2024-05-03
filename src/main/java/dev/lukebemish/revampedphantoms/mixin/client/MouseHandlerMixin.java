@@ -1,4 +1,4 @@
-package dev.lukebemish.revampedphantoms.mixin;
+package dev.lukebemish.revampedphantoms.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.lukebemish.revampedphantoms.RevampedPhantoms;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = MouseHandler.class, priority = 499)
-public class ClientMouseHandlerMixin {
+public class MouseHandlerMixin {
 	@Unique public boolean revamped_phantoms$cachedSmoothCamera;
 
 	@ModifyExpressionValue(

@@ -9,10 +9,13 @@
     "PhantomSpawnerMixin",
     "PlayerMixin",
     "ProjectileUtilMixin",
-    "SweepAttackMixin"
+    "SweepAttackMixin",
+		"EntityMixin"
   ],
   "client": [
-    "ClientMouseHandlerMixin"
+    "client.MouseHandlerMixin",
+		"client.LivingEntityRendererMixin",
+		"client.ClientPacketListenerMixin"
   ],
   "server": [],
   "injectors": {
