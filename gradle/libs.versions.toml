@@ -1,23 +1,23 @@
 [versions]
-minecraft = "1.20.6"
-parchment = "2024.05.01"
+minecraft = "1.21"
+parchment = "2024.07.07"
 
-neoforge = "20.6.1-beta"
+neoforge = "21.0.113-beta"
 
-fabric_loader = "0.15.10"
-fabric_api = "0.97.8+1.20.6"
+fabric_loader = "0.15.11"
+fabric_api = "0.100.7+1.21"
 
 fabric_mixin = "0.13.3+mixin.0.8.5"
 mixinextras = "0.3.5"
 
-modsdotgroovy = "2.0.0-beta.22"
+modsdotgroovy = "2.0.0-beta.30"
 
 modpublish = "0.5.1"
 
-managedversioning = "1.2.19"
+managedversioning = "1.2.21"
 
-codecextras = "2.0.0"
-opensesame = "0.5.5"
+codecextras = "2.3.1"
+opensesame = "0.6.0"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -27,7 +27,7 @@ fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fab
 
 neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
 
-parchment = { module = "org.parchmentmc.data:parchment-1.20.6", version.ref = "parchment" }
+parchment = { module = "org.parchmentmc.data:parchment-1.21", version.ref = "parchment" }
 
 fabric_mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "fabric_mixin" }
 

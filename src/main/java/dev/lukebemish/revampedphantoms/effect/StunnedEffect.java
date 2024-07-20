@@ -8,8 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemCooldowns;
 
 public class StunnedEffect extends MobEffect {
-	public static final String UUID = "9b23836a-f1c3-3e21-98e4-7ae212063415";
-
 	public StunnedEffect(MobEffectCategory mobEffectCategory, int i) {
 		super(mobEffectCategory, i);
 	}

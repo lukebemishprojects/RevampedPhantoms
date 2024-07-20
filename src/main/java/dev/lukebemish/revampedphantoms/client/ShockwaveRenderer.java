@@ -16,7 +16,7 @@ import org.joml.Quaternionf;
 
 
 public class ShockwaveRenderer extends EntityRenderer<Shockwave> {
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(RevampedPhantoms.MOD_ID,"textures/entity/phantom/shockwave.png");
+	private static final ResourceLocation TEXTURE_LOCATION = RevampedPhantoms.id("textures/entity/phantom/shockwave.png");
 	private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(TEXTURE_LOCATION);
 
 	public ShockwaveRenderer(EntityRendererProvider.Context context) {
@@ -47,13 +47,12 @@ public class ShockwaveRenderer extends EntityRenderer<Shockwave> {
 
 	private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, int packedLight, float x, int y, int u, int v) {
 		consumer
-			.vertex(pose, x - 0.5f, (float)y - 0.25f, 0.0f)
-			.color(255, 255, 255, 255)
-			.uv(u, v)
-			.overlayCoords(OverlayTexture.NO_OVERLAY)
-			.uv2(packedLight)
-			.normal(pose, 0.0f, 1.0f, 0.0f)
-			.endVertex();
+			.addVertex(pose, x - 0.5f, (float)y - 0.25f, 0.0f)
+			.setColor(255, 255, 255, 255)
+			.setUv(u, v)
+			.setOverlay(OverlayTexture.NO_OVERLAY)
+			.setLight(packedLight)
+			.setNormal(pose, 0.0f, 1.0f, 0.0f);
 	}
 
 	@Override

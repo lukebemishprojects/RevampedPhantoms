@@ -3,8 +3,6 @@ package dev.lukebemish.revampedphantoms;
 import dev.lukebemish.revampedphantoms.entity.Shockwave;
 import dev.lukebemish.revampedphantoms.utils.Accessors;
 import dev.lukebemish.revampedphantoms.utils.HasSharedGoals;
-import java.util.Comparator;
-import java.util.List;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -17,6 +15,9 @@ import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Comparator;
+import java.util.List;
 
 public final class PhantomGoals {
 	private PhantomGoals() {}
@@ -170,7 +171,7 @@ public final class PhantomGoals {
 						if (!self.isSilent()) {
 							self.playSound(SoundEvents.PHANTOM_SWOOP, 10.0f, 1.5f + self.getRandom().nextFloat() * 0.1f);
 						}
-						Shockwave shockwave = new Shockwave(self.level(), self, o, p, q);
+						Shockwave shockwave = new Shockwave(self.level(), self, new Vec3(o, p, q));
 						shockwave.moveTo(l, m, n, 0.0f, 0.0f);
 						self.level().addFreshEntity(shockwave);
 					}
@@ -200,6 +201,7 @@ public final class PhantomGoals {
 					&& self.getFirstPassenger() == null
 					&& !self.getTarget().isPassenger()
 					&& !self.getTarget().isFallFlying()
+					&& self.tickCount > ((HasSharedGoals)self).revamped_phantoms$getGoalHolder().tickToTryGrab
 					&& (((HasSharedGoals)self).revamped_phantoms$getGoalHolder().shouldGrab || shouldOnlyCarry);
 		}
 
@@ -251,7 +253,7 @@ public final class PhantomGoals {
 				//Try to carry off
 				livingEntity.startRiding(self);
 				((HasSharedGoals)self).revamped_phantoms$getGoalHolder().preyGrabbedY = self.getY();
-				((HasSharedGoals)self).revamped_phantoms$getGoalHolder().ticksSinceGrabbed = self.tickCount + 20*10;
+				((HasSharedGoals)self).revamped_phantoms$getGoalHolder().tickToStopGrabbing = self.tickCount + 20*10;
 				((HasSharedGoals)self).revamped_phantoms$getGoalHolder().shouldGrab = false;
 				Accessors.setAttackPhase(self, Accessors.getCirclePhase());
 			} else if (self.horizontalCollision || self.hurtTime > 0 || livingEntity.hasPassenger(self)) {
@@ -275,7 +277,8 @@ public final class PhantomGoals {
 		@Override
 		public void tick() {
 			Entity entity = self.getFirstPassenger();
-			if (entity != null && (self.getY() > 30.0+((HasSharedGoals)self).revamped_phantoms$getGoalHolder().preyGrabbedY || self.tickCount > ((HasSharedGoals)self).revamped_phantoms$getGoalHolder().ticksSinceGrabbed)) {
+			if (entity != null && (self.getY() > 30.0+((HasSharedGoals)self).revamped_phantoms$getGoalHolder().preyGrabbedY || self.tickCount > ((HasSharedGoals)self).revamped_phantoms$getGoalHolder().tickToStopGrabbing)) {
+				((HasSharedGoals)self).revamped_phantoms$getGoalHolder().tickToTryGrab = self.tickCount + 10;
 				entity.stopRiding();
 			}
 		}

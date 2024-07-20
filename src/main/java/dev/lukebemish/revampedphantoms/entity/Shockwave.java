@@ -16,6 +16,7 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -29,8 +30,8 @@ public class Shockwave extends AbstractHurtingProjectile {
 		return 1.4f;
 	}
 
-	public Shockwave(Level level, LivingEntity livingEntity, double d, double e, double f) {
-		super(RevampedPhantoms.instance().shockwave.get(), livingEntity, d, e, f, level);
+	public Shockwave(Level level, LivingEntity owner, Vec3 movement) {
+		super(RevampedPhantoms.instance().shockwave.get(), owner, movement, level);
 	}
 
 	public float getDistFromInitial() {

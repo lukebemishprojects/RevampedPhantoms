@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 
 public class RevampedPhantoms {
 	public static final String MOD_ID = "revamped_phantoms";
-	private static final ResourceLocation ROOT_ID = new ResourceLocation(MOD_ID, MOD_ID);
+	private static final ResourceLocation ROOT_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, MOD_ID);
 	public static ResourceLocation id(String path) {
 		return ROOT_ID.withPath(path);
 	}
@@ -37,7 +37,7 @@ public class RevampedPhantoms {
 	private RevampedPhantoms(Platform platform) {
 		this.stunned = platform.register(
 			Registries.MOB_EFFECT,
-			() -> new StunnedEffect(MobEffectCategory.HARMFUL, 0x795a94).addAttributeModifier(Attributes.MOVEMENT_SPEED, StunnedEffect.UUID, -0.15f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+			() -> new StunnedEffect(MobEffectCategory.HARMFUL, 0x795a94).addAttributeModifier(Attributes.MOVEMENT_SPEED, id("effect.stunned"), -0.15f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
 			id("stunned")
 		);
 		this.shockwave = platform.register(
